@@ -27,6 +27,7 @@ type Note struct {
 type Message struct {
 	Status  string `json:"status"`
 	Message string `json:"message"`
+	Data    *Note  `json:"data"`
 }
 
 var db *gorm.DB
@@ -131,16 +132,26 @@ func getPutDeleteNote(w http.ResponseWriter, r *http.Request) {
 		json.Unmarshal(reqBody, &newNote)
 
 		db.Model(&note).Updates(&newNote)
+		message := Message{
+			Status:  "OK",
+			Message: "Note updated!",
+			Data:    &newNote,
+		}
 		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(newNote)
+		json.NewEncoder(w).Encode(message)
 		return
 
 	// Returns deleted note
 	case "DELETE":
 		fmt.Println("Delete notes")
 		db.Delete(&note)
-		w.WriteHeader(http.StatusNoContent)
-		json.NewEncoder(w).Encode(note)
+		message := Message{
+			Status:  "OK",
+			Message: "Note deleted",
+			Data:    &note,
+		}
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(message)
 	}
 }
 
