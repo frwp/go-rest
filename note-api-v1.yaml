@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Notes Api
+  version: '1.0'
+  description: Demo Restful API Notes
+  x-logo:
+    url: ''
+servers:
+  - url: https://api.example.io
+paths:
+  /notes:
+    get:
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+        400:
+          description: Invalid status value
+          content: {}
+      tags: []
+    post:
+      post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+      responses:
+        201:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Note'
+      tags: []
+    x-last-modified: 1628047947959
+  /notes/{id}:
+    get:
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Note'
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+        404:
+          description: note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+      tags: []
+    put:
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Note'
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+        404:
+          description: note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+      tags: []
+    delete:
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Note'
+        400:
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+        404:
+          description: note not found
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Message'
+      tags: []
+components:
+  securitySchemes: {}
+  schemas:
+    Note:
+      type: object
+      required: []
+      properties:
+        title:
+          type: string
+        details:
+          type: string
+        dueDate:
+          type: string
+    Message:
+      type: object
+      required: []
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+          $ref: '#/components/schemas/Note'
+  headers: {}
+  responses: {}
+  parameters: {}
+tags: []
+security: []
