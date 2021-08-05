@@ -24,7 +24,6 @@ paths:
           content: {}
       tags: []
     post:
-      post:
       requestBody:
         content:
           application/json:
@@ -42,6 +41,14 @@ paths:
     x-last-modified: 1628047947959
   /notes/{id}:
     get:
+      parameters:
+      - name: id
+        in: path
+        description: ID of note to return
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
@@ -66,6 +73,14 @@ paths:
                 $ref: '#/components/schemas/Message'
       tags: []
     put:
+      parameters:
+        - name: id
+          in: path
+          description: ID of note to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         200:
           description: successful operation
@@ -90,6 +105,14 @@ paths:
                 $ref: '#/components/schemas/Message'
       tags: []
     delete:
+      parameters:
+      - name: id
+        in: path
+        description: ID of note to return
+        required: true
+        schema:
+          type: integer
+          format: int64
       responses:
         200:
           description: successful operation
@@ -118,7 +141,7 @@ components:
   schemas:
     Note:
       type: object
-      required: []
+      required: [title, details, dueDate]
       properties:
         title:
           type: string
@@ -128,7 +151,7 @@ components:
           type: string
     Message:
       type: object
-      required: []
+      required: [status, message]
       properties:
         status:
           type: string
